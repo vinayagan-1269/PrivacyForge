@@ -1,0 +1,37 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Pseudonymization secrets and mappings
+data/.pseudonymization_key
+data/pseudonym_mapping.json
+
+# Runtime detection and processing data
+data/pii_detections.json
+data/merged_entities.json
+data/pseudonymized_entities.json
+
+# Generated output documents
+output/
+uploads/
+
+# Logs
+*.log
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

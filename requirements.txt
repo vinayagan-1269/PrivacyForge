@@ -1,0 +1,13 @@
+Flask
+pandas
+joblib
+python-docx
+python-pptx
+PyMuPDF
+pypdf
+pytesseract
+Pillow
+transformers
+gliner
+reportlab
+scikit-learn

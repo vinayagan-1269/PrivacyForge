@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PrivacyForge | PII Protection</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">P</div>
+                <div>
+                    <h2>PrivacyForge</h2>
+                    <p>DOCUMENT SECURITY</p>
+                </div>
+            </div>
+
+            <div class="nav-label">WORKSPACE</div>
+
+            <button class="nav-item active" data-page="sanitize">
+                <span>◈</span> Document Sanitization
+            </button>
+
+            <button class="nav-item" data-page="reidentify">
+                <span>↻</span> Re-identification
+            </button>
+
+            <div class="sidebar-bottom">
+                <div class="security-indicator"></div>
+                <div>
+                    <strong>Local Processing</strong>
+                    <p>Documents processed by your backend</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <p class="breadcrumb">WORKSPACE / <span id="breadcrumb-page">SANITIZATION</span></p>
+                    <h1 id="page-title">Document Sanitization</h1>
+                </div>
+
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    Backend interface
+                </div>
+            </header>
+
+            <!-- SANITIZATION PAGE -->
+
+            <section class="page active" id="sanitize-page">
+
+                <div class="hero">
+                    <div class="hero-text">
+                        <span class="eyebrow">PRIVACY PROTECTION ENGINE</span>
+
+                        <h2>Protect sensitive data.<br>
+                            <span>Preserve document usability.</span>
+                        </h2>
+
+                        <p>
+                            Detect personally identifiable information,
+                            replace sensitive values with consistent pseudonyms,
+                            and prepare documents for safer external analysis.
+                        </p>
+
+                        <div class="feature-list">
+                            <span>✓ PII Detection</span>
+                            <span>✓ Pseudonymization</span>
+                            <span>✓ Document Processing</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual">
+                        <div class="visual-orbit orbit-one"></div>
+                        <div class="visual-orbit orbit-two"></div>
+
+                        <div class="shield">
+                            <span>◆</span>
+                        </div>
+
+                        <div class="floating-card card-one">
+                            <small>IDENTITY</small>
+                            <strong>[PERSON_00001]</strong>
+                        </div>
+
+                        <div class="floating-card card-two">
+                            <small>STATUS</small>
+                            <strong>Protected ✓</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-heading">
+                    <div>
+                        <h3>Upload your document</h3>
+                        <p>Choose a document to run through the privacy pipeline.</p>
+                    </div>
+
+                    <span class="file-limit">MAX 50 MB</span>
+                </div>
+
+                <div class="upload-card">
+                    <input
+                        type="file"
+                        id="document-input"
+                        accept=".pdf,.docx,.pptx"
+                        hidden
+                    >
+
+                    <div class="drop-zone" id="drop-zone">
+                        <div class="upload-icon">↑</div>
+
+                        <h3>Drop your document here</h3>
+
+                        <p>
+                            or
+                            <button type="button" id="browse-button">
+                                browse files
+                            </button>
+                        </p>
+
+                        <div class="supported-formats">
+                            <span>PDF</span>
+                            <span>DOCX</span>
+                            <span>PPTX</span>
+                        </div>
+                    </div>
+
+                    <div class="selected-file hidden" id="selected-file">
+                        <div class="file-icon">DOC</div>
+
+                        <div class="file-information">
+                            <strong id="file-name">document.pdf</strong>
+                            <span id="file-size">0 MB</span>
+                        </div>
+
+                        <button type="button" id="remove-file" class="remove-button">
+                            ✕
+                        </button>
+                    </div>
+
+                    <div class="upload-actions">
+                        <div class="privacy-note">
+                            <span>🔒</span>
+                            <span>Your document is processed by the local backend.</span>
+                        </div>
+
+                        <button id="sanitize-button" class="primary-button" disabled>
+                            Sanitize Document <span>→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="progress-card hidden" id="progress-card">
+                    <div class="progress-header">
+                        <div>
+                            <h3 id="progress-title">Processing document</h3>
+                            <p id="progress-message">
+                                Running the document processing pipeline...
+                            </p>
+                        </div>
+
+                        <div class="spinner" id="spinner"></div>
+                    </div>
+
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="result-card hidden" id="result-card">
+                    <div class="result-icon">✓</div>
+
+                    <div class="result-information">
+                        <h3 id="result-title">Processing complete</h3>
+                        <p id="result-message"></p>
+                        <span id="result-filename"></span>
+                    </div>
+
+                    <a id="download-button" class="primary-button" href="#">
+                        Download Document ↓
+                    </a>
+                </div>
+
+                <div class="error-card hidden" id="error-card">
+                    <strong>Processing failed</strong>
+                    <p id="error-message"></p>
+                </div>
+
+                <div class="pipeline-section">
+                    <div class="section-heading">
+                        <div>
+                            <h3>How the pipeline works</h3>
+                            <p>Each document passes through these processing stages.</p>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-grid">
+                        <div class="pipeline-step">
+                            <span class="step-number">01</span>
+                            <div class="step-icon">▤</div>
+                            <h4>Extraction</h4>
+                            <p>Extract document text using format-specific extractors.</p>
+                        </div>
+
+                        <div class="pipeline-step">
+                            <span class="step-number">02</span>
+                            <div class="step-icon">⌕</div>
+                            <h4>PII Detection</h4>
+                            <p>Identify sensitive values using regex and NER.</p>
+                        </div>
+
+                        <div class="pipeline-step">
+                            <span class="step-number">03</span>
+                            <div class="step-icon">⛓</div>
+                            <h4>Pseudonymization</h4>
+                            <p>Associate detected values with consistent pseudonyms.</p>
+                        </div>
+
+                        <div class="pipeline-step">
+                            <span class="step-number">04</span>
+                            <div class="step-icon">✓</div>
+                            <h4>Sanitization</h4>
+                            <p>Generate a sanitized document for external analysis.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- RE-IDENTIFICATION PAGE -->
+
+            <section class="page" id="reidentify-page">
+
+                <div class="secondary-hero">
+                    <span class="eyebrow">CONTROLLED RESTORATION</span>
+
+                    <h2>Re-identify pseudonymized text.</h2>
+
+                    <p>
+                        Restore known pseudonyms in an analysis text file
+                        using your existing protected mapping.
+                    </p>
+                </div>
+
+                <div class="upload-card reidentify-card">
+                    <input
+                        type="file"
+                        id="text-input"
+                        accept=".txt"
+                        hidden
+                    >
+
+                    <div class="drop-zone">
+                        <div class="upload-icon">↻</div>
+
+                        <h3>Choose an analysis text file</h3>
+
+                        <p>Only .txt files are supported.</p>
+
+                        <button
+                            type="button"
+                            id="browse-text-button"
+                            class="secondary-button"
+                        >
+                            Browse text file
+                        </button>
+                    </div>
+
+                    <div class="selected-file hidden" id="selected-text-file">
+                        <div class="file-icon">TXT</div>
+
+                        <div class="file-information">
+                            <strong id="text-file-name"></strong>
+                            <span id="text-file-size"></span>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="remove-text-file"
+                            class="remove-button"
+                        >
+                            ✕
+                        </button>
+                    </div>
+
+                    <div class="upload-actions">
+                        <div class="privacy-note">
+                            <span>🔐</span>
+                            <span>Re-identification uses your local mapping.</span>
+                        </div>
+
+                        <button
+                            type="button"
+                            id="reidentify-button"
+                            class="primary-button"
+                            disabled
+                        >
+                            Restore Values →
+                        </button>
+                    </div>
+                </div>
+
+                <div class="result-card hidden" id="reidentify-result">
+                    <div class="result-icon">✓</div>
+
+                    <div class="result-information">
+                        <h3>Re-identification complete</h3>
+                        <p id="reidentify-message"></p>
+                        <span id="reidentify-filename"></span>
+                    </div>
+
+                    <a
+                        id="reidentify-download"
+                        class="primary-button"
+                        href="#"
+                    >
+                        Download Text ↓
+                    </a>
+                </div>
+
+                <div class="error-card hidden" id="reidentify-error">
+                    <strong>Re-identification failed</strong>
+                    <p id="reidentify-error-message"></p>
+                </div>
+
+                <div class="warning-card">
+                    <strong>⚠ Handle restored data carefully</strong>
+                    <p>
+                        Re-identification can expose the original sensitive
+                        values. Use it only when authorized and store the
+                        resulting file securely.
+                    </p>
+                </div>
+
+            </section>
+
+            <footer>
+                <span>PrivacyForge</span>
+                <span>Document privacy and pseudonymization</span>
+            </footer>
+
+        </main>
+    </div>
+</body>
+</html>
